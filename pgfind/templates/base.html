@@ -1,0 +1,334 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title>FindPG</title>
+
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">                            <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/vendor/font-awesom/css/font-awesome.min.css' %}">  <!-- Font Awesome -->
+
+	<link rel="stylesheet" href="css/vendor/animate-wow/animate.css' %}">               <!-- Animation WOW -->
+
+    <link rel="stylesheet" href="{% static 'css/vendor/labelauty/labelauty.css' %}">               <!-- Checkbox form Style -->
+	<link rel="stylesheet" href="{% static 'css/vendor/nouislider/nouislider.min.css' %}">         <!-- Slider Price -->
+    <link rel="stylesheet" href="{% static 'css/vendor/easydropdown/easydropdown.css' %}">         <!-- Select form Style -->
+    <link rel="stylesheet" href="{% static 'css/ui-spinner.css' %}">                               <!-- Spinner -->
+
+	<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">                                   <!-- Include Menu stylesheet -->
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}">                                   <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/media-query.css' %}">                              <!-- Media Query -->
+
+	<!-- Use Iconifyer to generate all the favicons and touch icons you need: http://iconifier.net -->
+
+
+	<script src="{% static 'script/modernizr.min.js' %}"></script> <!-- Modernizr -->
+
+  </head>
+  <body class="fixed-header">
+
+	<div id="page-container">
+		<header class="menu-base" id="header-container-box">
+			<div class="info"><!-- info -->
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+              <h2 style="padding-top:8px;">Welcome! We help you to find the best PG for you.</h2>
+						</div>
+						<div id="login-pan" class="col-md-6 hidden-xs">
+						<a href="/addpg"></i>Add PG</a>
+            <form style="padding-top:8px;">
+
+    </form>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.info -->
+			<div class="logo hidden-xs">
+				<!--a href="#"><img id="logo-header" src="{% static 'images/logo.png' %}" alt="Logo" /--><!--/a-->
+        <h1>Find a PG near you.</h1>
+			</div><!-- /.logo -->
+			<a href="#" class="fixed-button top"><i class="fa fa-chevron-up"></i></a>
+			<a href="#" class="hidden-xs fixed-button email" data-toggle="modal" data-target="#modal-contact" data-section="modal-contact"><i class="fa fa-envelope-o"></i></a>
+		</header>
+
+<div id="googleMap" style="width:100%;height:600px;"></div>
+
+		<section id="recent-list">
+			<div class="section-detail">
+				<h1>
+
+
+			</div>
+			<div class="container">
+				<div class="list-box-title">
+					<span><i class="icon fa fa-plus-square"></i>Recent Listed</span>
+				</div>
+        <!-- <ul> -->
+        {% for pgs in all_pg reversed %}
+
+
+
+
+
+					<div class="col-md-4">
+						<div class="box-ads box-home">
+							<a class=" image image-fill" >
+								<!-- <span class="cover"></span> -->
+								<img class="imgprp" alt="PG Image"  src="{{pgs.image}}">
+								<h3 class="title">{{pgs.pg_name}}</h3>
+							</a><!-- /.hover-effect -->
+              <span class="description">{{pgs.owner_name}}</span>
+              <span class="description">{{pgs.owner_phone}}</span>
+							<span class="price">Rs. {{pgs.pg_price}}</span>
+							<span class="address"><i class="fa fa-map-marker"></i> {{pgs.loc_area}},{{pgs.loc_street}}</span>
+							<span class="description">{{pgs.pg_descp}}</span>
+							<!-- /.detail -->
+
+						</div><!-- /.box-home .box-ads -->
+					</div><!-- ./col-md-4 -->
+
+
+        {% endfor %}
+				<!-- <div class="list-box-title">
+
+				</div> -->
+			</div>
+		</section>
+
+		<!-- <section id="submit-property" data-parallax-speed="0">
+			<span class="overlay"></span>
+			<div class="container">
+				<div class="section-detail">
+					<h1>Are you looking for renting your PG?</h1>
+					<h2> Join with us today and find better tenants for your PG </h2>
+				</div>
+				<div class="row text-center">
+					<a href="/addpg" class="btn btn-reverse button-large">Add Your PG Now!</a>
+				</div>
+			</div>
+		</section> -->
+
+	<script	src="{% static 'script/jquery.min.js' %}"></script>		<!-- jQuery	(necessary for Bootstrap's JavaScript plugins) -->
+	<script	src="{% static 'script/jquery-ui.min.js' %}"></script>		<!-- jQuery	UI is a	curated	set	of user	interface interactions,	effects, widgets, and themes -->
+	<script	src="{% static 'script/bootstrap.min.js' %}"></script>		<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+
+  <script>
+
+function myMap() {
+
+var mapProp= {
+    center:new google.maps.LatLng(12.9716,77.5946),
+    zoom:13,
+    styles: [
+          {
+            "featureType": "landscape.natural",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "visibility": "on"
+              },
+              {
+                "color": "#e0efef"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "all",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "poi",
+            "elementType": "geometry.fill",
+            "stylers": [
+              {
+                "visibility": "on"
+              },
+              {
+                "hue": "#1900ff"
+              },
+              {
+                "color": "#c0e8e8"
+              }
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "lightness": 100
+              },
+              {
+                "visibility": "simplified"
+              }
+            ]
+          },
+          {
+            "featureType": "road",
+            "elementType": "labels",
+            "stylers": [
+              {
+                "visibility": "on"
+              }
+            ]
+          },
+          {
+            "featureType": "transit",
+            "elementType": "labels",
+            "stylers": [
+              {
+                "visibility": "off"
+              }
+            ]
+          },
+          {
+            "featureType": "transit.line",
+            "elementType": "geometry",
+            "stylers": [
+              {
+                "visibility": "on"
+              },
+              {
+                "lightness": 700
+              }
+            ]
+          },
+          {
+            "featureType": "water",
+            "elementType": "all",
+            "stylers": [
+              {
+                "color": "#7dcdcd"
+              }
+            ]
+          }
+        ]
+};
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+// var myLatLng = {lat: 12.9716, lng: 77.5946};
+// var marker = new google.maps.Marker({
+//     position: myLatLng,
+//     map: googleMapmap
+//
+//   });
+var infoWindow = new google.maps.InfoWindow(),marker;
+if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                title : 'Yaha xa MC',
+                icon:"{% static 'images/maps/you-are-here.png' %}",
+                zIndex: 999999,
+
+            });
+            map.setCenter(pos);
+            {% for pgs in all_pg reversed %}
+             var poss = {
+              lat: {{pgs.latitude}},
+             lng: {{pgs.longitude}}
+            };
+            var idd = {{pgs.id}};
+
+            var marker = new google.maps.Marker({
+                position: poss,
+                map: map,
+                title : "{{pgs.pg_name}}",
+                icon:"{% static 'images/maps/family-house-hover-pin.png' %}",
+                zIndex: 999999,
+              });
+              google.maps.event.addListener(marker, 'click', (function(marker) {
+            return function() {
+              var infoWindowContent =
+              	'<div class="pg_pop">'+
+    							'<a class=" image image-fill" >'+
+    								'<img  style="width:100%;height:50%;" alt="PG Image"  src="{{pgs.image}}">'+
+
+    							'</a></br>'+
+                  '<span class="pop">PG Name:{{pgs.pg_name}}</span></br>'+
+                  '<span class="pop">PG Owner:{{pgs.owner_name}}</span></br>'+
+                  '<span class="pop">Contact Number:{{pgs.owner_phone}}</span></br>'+
+    							'<span class="pop">Price:Rs. {{pgs.pg_price}}</span></br>'+
+    							'<span class="pop">Area:{{pgs.loc_area}},{{pgs.loc_street}}</span></br>'+
+    							'<span class="pop">About PG:{{pgs.pg_descp}}</span>'
+    					'</div>'
+
+              ;
+                infoWindow.setContent(infoWindowContent);
+                infoWindow.open(map, marker);
+            }
+            map.fitBounds(bounds);
+        })(marker, idd));
+              {% endfor %}
+              
+              // var latlngbounds = new google.maps.LatLngBounds();
+              // {% for pgs in all_pg reversed %}
+              //  var poss = {
+              //   lat: {{pgs.latitude}},
+              //  lng: {{pgs.longitude}}
+              // };
+              // latlngbounds.extends(poss);
+              // {% endfor %}
+              // map.fitBounds(latlngbounds);
+              // new google.maps.Rectangle({
+              //   bounds: latlngbounds,
+              //   map:map,
+              //
+              // });
+
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent('Location found.');
+            //
+            // infoWindow.open(map);
+
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+
+
+}
+
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7tJZ-rRxAW9EuN2IKR8fTjP0K_JAlhL4&callback=myMap"></script>			<!-- Google Map -->
+					<!-- The library creates and manages per-zoom-level clusters for large amounts of markers -->
+
+	<script	src="{% static 'script/custom.js' %}"></script>		<!-- Custom	Script -->
+
+	<script>
+		/* CLOSE SEARCH BOX */
+		setTimeout(function(){$('.botton-options').click()}, 4000);
+	</script>
+
+  </body>
+</html>
